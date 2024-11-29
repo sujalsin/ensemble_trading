@@ -1,0 +1,36 @@
+graph TB
+    subgraph Data Processing
+        YF[Yahoo Finance API] --> DP[Data Processor]
+        DP --> |Historical Data| FE[Feature Engineering]
+        FE --> |Technical Indicators| DS[Dataset]
+    end
+
+    subgraph Trading Environment
+        DS --> |State| ENV[Trading Environment]
+        ENV --> |Reward| Models
+        ENV --> |Next State| Models
+        ENV --> |Done| Models
+    end
+
+    subgraph Models
+        PPO[PPO Model] --> |Action| ENS[Ensemble Model]
+        A2C[A2C Model] --> |Action| ENS
+        DDPG[DDPG Model] --> |Action| ENS
+        ENS --> |Final Action| ENV
+    end
+
+    subgraph Performance Monitoring
+        ENV --> |Returns| PM[Performance Metrics]
+        PM --> |Model Weights| ENS
+    end
+
+    style YF fill:#f9f,stroke:#333,stroke-width:2px
+    style DP fill:#bbf,stroke:#333,stroke-width:2px
+    style FE fill:#bbf,stroke:#333,stroke-width:2px
+    style DS fill:#bfb,stroke:#333,stroke-width:2px
+    style ENV fill:#fbb,stroke:#333,stroke-width:2px
+    style PPO fill:#ff9,stroke:#333,stroke-width:2px
+    style A2C fill:#ff9,stroke:#333,stroke-width:2px
+    style DDPG fill:#ff9,stroke:#333,stroke-width:2px
+    style ENS fill:#f99,stroke:#333,stroke-width:2px
+    style PM fill:#bff,stroke:#333,stroke-width:2px
